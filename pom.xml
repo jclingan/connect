@@ -16,6 +16,7 @@
     <quarkus.platform.group-id>io.quarkus.platform</quarkus.platform.group-id>
     <quarkus.platform.version>2.2.3.Final</quarkus.platform.version>
     <surefire-plugin.version>3.0.0-M5</surefire-plugin.version>
+    <jvm.args>-Dcom.couchbase.env.io.enableDnsSrv=false</jvm.args>
   </properties>
   <dependencyManagement>
     <dependencies>
