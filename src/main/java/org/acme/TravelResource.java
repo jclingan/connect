@@ -11,7 +11,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import com.couchbase.client.java.Cluster;
-import com.couchbase.client.java.json.JsonObject;
 
 import org.eclipse.microprofile.config.inject.ConfigProperty;
 
@@ -25,15 +24,17 @@ public class TravelResource {
 
   @GET
   @Produces(MediaType.APPLICATION_JSON)
-  public List<JsonObject> run() {
+  public List<String> run() {
     // Get a reference to a particular Couchbase bucket and its default collection
-    var list = new ArrayList<JsonObject>();
+    var list = new ArrayList<String>();
+
     // Perform a N1QL query
     var queryResult = cluster.query(query);
+
     queryResult.rowsAsObject().forEach(row -> {
-      list.add(row.getObject("travel-sample"));
-      System.out.println(row);
+        list.add(row.getObject("travel-sample").getString("name"));
     });
+
     return list;
   }
 }
