@@ -36,4 +36,20 @@ public class TravelResource {
     });
     return list;
   }
+
+  @GET
+  @Produces(MediaType.APPLICATION_JSON)
+  @Path("marriotts")
+  public List<Hotel> getMarriotts() {
+
+    var travel = cluster.bucket("travel-sample");
+    var inventory = travel.scope("inventory");
+
+    var queryResult = inventory.query("SELECT hotel.* FROM hotel WHERE name LIKE \"Marriott%\"");
+    List<Hotel> hotels = queryResult.rowsAs(Hotel.class);
+
+    return hotels;
+
+  }
+
 }
